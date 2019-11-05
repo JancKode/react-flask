@@ -6,32 +6,32 @@
 
 2. Install pipenv 
    
-   `pip install pipenv`
+     `pip install pipenv`
    
 3. Open terminal and go to project directory
 
 4. Launch virtual environment
   
-  `pipenv shell`
+    `pipenv shell`
   
 5. Install flask and python dependencies
 
-  `pip install -r requirements.txt`
+    `pip install -r requirements.txt`
   
 6. Launch flask app
 
-   `export FLASK_APP=__init__`
+     `export FLASK_APP=__init__`
    
-   `export FLASK_DEBUG=1`
+     `export FLASK_DEBUG=1`
    
-   `flask run`
+     `flask run`
    
 7. Open a new terminal and change directory to frontend
 
 8. Install React dependencies
 
-   `npm install`
+     `npm install`
    
 9. Run React app
 
-   `npm start`
+     `npm start`
