@@ -56,7 +56,10 @@ export const login = (username, password) => dispatch => {
     .post("/login", body, config)
     .then(res => {
       console.log(`res`, res);
-      if (res.data.result === "No user found") {
+      if (
+        res.data.result === "No user found" ||
+        res.data.result === "Invalid username or password"
+      ) {
         dispatch(returnErrors(res.data.result, res.status));
         dispatch({
           type: LOGIN_FAIL
@@ -92,7 +95,10 @@ export const register = ({ username, password, email }) => dispatch => {
   axios
     .post("/register", body, config)
     .then(res => {
-      if (res.data.result === "User already exists") {
+      if (
+        res.data.result === "User already exists" ||
+        res.data.result === "Email already used, please register a new one"
+      ) {
         dispatch(returnErrors(res.data.result, res.status));
         dispatch({
           type: REGISTER_FAIL

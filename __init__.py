@@ -2,9 +2,11 @@ from flask import Flask
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 
 mongo = PyMongo()
 bcrypt = Bcrypt()
+jwt = JWTManager()
 
 
 def create_app():
@@ -15,7 +17,7 @@ def create_app():
     app.config['MONGO_URI'] = 'mongodb+srv://userdb:MIloq3nVjjwYEiVM@cluster0-wogsk.mongodb.net/users?retryWrites=true&w=majority'
 
     mongo.init_app(app)
-
+    jwt.init_app(app)
     bcrypt.init_app(app)
 
     CORS(app)

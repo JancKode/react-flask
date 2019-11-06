@@ -11,26 +11,15 @@ export class Alert extends Component {
     const { error, message } = this.props;
     console.log(`error`, error);
     console.log("prevProps", prevProps);
-    // if (error !== prevProps.error) {
-    //   if (error.msg.username) {
-    //     alert(`Username ${error.msg.username.join()}`);
-    //   }
-    //   if (error.msg.password) {
-    //     alert(`Password ${error.msg.password.join()}`);
-    //   }
-    //   if (error.msg.email) {
-    //     alert(`Email: ${error.msg.email.join()}`);
-    //   }
-    //   if (error.msg.non_field_errors) {
-    //     alert(error.msg.non_field_errors.join());
-    //   }
-    // }
-    if (error.msg && error.msg === "User already exists") {
+    if (
+      error.msg &&
+      (error.msg === "User already exists" ||
+        error.msg === "Invalid username or password" ||
+        error.msg === "No user found" ||
+        error.msg === "Email already used, please register a new one")
+    ) {
       alert(error.msg);
-    }
-
-    if (error.msg && error.msg === "No user found") {
-      alert(error.msg);
+      return false;
     }
 
     if (message !== prevProps.error.msg) {

@@ -46,22 +46,32 @@ def register():
         username = request.get_json()['username']
         email = request.get_json()['email']
         existing_user = users.find_one({'username': username})
+        existing_email = users.find_one({'email': email})
         created = datetime.utcnow()
         password = bcrypt.generate_password_hash(
             request.get_json()['password']).decode('utf-8')
         result = ''
 
-        if existing_user is None:
+        if existing_email:
+            return jsonify({'result': 'Email already used, please register a new one'})
+
+        if existing_user is None and existing_email is None:
+            access_token = create_access_token(identity={
+                'username': username,
+                'email': email
+            })
+
             users.insert(
                 {'username': username, 'email': email, 'password': password})
             session['username'] = username
-            return jsonify({'result':  'User successfully registered'})
 
-        return jsonify({'result': 'User already exists'})
-
-    return jsonify({'result': 'Welcome'})
+            return jsonify({'token': access_token})
+        else:
+            return jsonify({'result': 'User already exists'})
 
 
 @auth.route('/logout', methods=['GET', 'POST'])
 def logout():
-    return 'Logout'
+    if 'username' in session:
+        session.pop('username', None)
+    return({'result': 'You have successfully logged out'})
